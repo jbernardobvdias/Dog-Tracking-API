@@ -5,16 +5,15 @@ A simple and scalable RESTful API for tracking dogs, built with Go (Golang) and 
 ## Features
 
 - Add, update, delete, and retrieve dog records
-- Track dog location updates
 - RESTful API with JSON responses
 - Dockerized for easy deployment
-- Clean, idiomatic Go project structure
 
 ## Technologies
 
 - Go (Golang)
 - Docker
-- net/http (standard library)
+- net/http (standard go library)
+- gin (third party go library)
 - JSON for API communication
 
 ## Getting Started
@@ -26,6 +25,19 @@ A simple and scalable RESTful API for tracking dogs, built with Go (Golang) and 
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/dog-tracking-api.git
+git clone https://github.com/jbernardobvdias/dog-tracking-api.git
 cd dog-tracking-api
+```
+
+### Running locally
+
+```bash
+go run main.go
+```
+
+### Running on Docker
+
+```bash
+docker build -t dogs .
+docker run dogs
 ```

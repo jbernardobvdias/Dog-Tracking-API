@@ -2,20 +2,20 @@ package main
 
 import (
 	"dog-tracking/data"
-	"fmt"
+	"log"
 )
 
 func main() {
-	fmt.Println("What type of API do you want to use?\n - 1 - net/http\n - 2 - gin")
-	var s string
-	fmt.Scanln(&s)
+	log.Println("Setting up SQLite DB...")
 
-	switch s {
-	case "1":
-		data.SetupHttp("8080")
-	case "2":
-		data.SetupGin("8080")
-	default:
-		fmt.Println("Choice not available")
-	}
+	data.CreateTable()
+
+	log.Println("Table set up.")
+	log.Println("Setting up API...")
+
+	data.SetupHttp("8080")
+	// or
+	// data.SetupGin("8080")
+
+	log.Println("API set up.")
 }

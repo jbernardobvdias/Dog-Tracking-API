@@ -4,6 +4,7 @@ import (
 	"dog-tracking/models"
 	"encoding/json"
 	"io"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -12,13 +13,19 @@ import (
 )
 
 func SetupHttp(port string) {
+	log.Println("Setting up HTTP API...")
+
 	http.HandleFunc("/dogs", HttpHanldeDogs)
 	http.HandleFunc("/dogs/", HttpHandleDogWithId)
 
 	http.ListenAndServe(":"+port, nil)
+
+	log.Println("HTTP API set up on port " + port)
 }
 
 func SetupGin(port string) {
+	log.Println("Setting up Gin API...")
+
 	router := gin.Default()
 
 	router.GET("/dogs", GinGetDogs)
@@ -27,6 +34,8 @@ func SetupGin(port string) {
 	router.DELETE("/dogs/:id", GinDeleteDogs)
 
 	router.Run(":" + port)
+
+	log.Println("Gin API set up on port " + port)
 }
 
 // HTTP Handlers

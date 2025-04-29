@@ -9,7 +9,7 @@ import (
 )
 
 const DBTYPE string = "sqlite3"
-const DBPATH string = "./db/database.db"
+const DBPATH string = "./database.db"
 
 func CreateTable() {
 	db, err := sql.Open(DBTYPE, DBPATH)
