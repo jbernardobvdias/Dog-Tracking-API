@@ -3,13 +3,15 @@ package data
 import (
 	"database/sql"
 	"log"
+	"os"
 	"strconv"
 
 	_ "github.com/mattn/go-sqlite3"
 )
 
 const DBTYPE string = "sqlite3"
-const DBPATH string = "./database.db"
+
+var DBPATH string = os.Getenv("DBPATH")
 
 func CreateTable() {
 	db, err := sql.Open(DBTYPE, DBPATH)
@@ -18,8 +20,12 @@ func CreateTable() {
 	}
 	defer db.Close()
 
-	// Create the activities table if it does not exist.
-	statement, _ := db.Prepare("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY, name TEXT UNIQUE, race TEXT, age INTEGER)")
+	// Create the dogs table if it does not exist.
+	statement, err := db.Prepare("CREATE TABLE IF NOT EXISTS dogs (id INTEGER PRIMARY KEY, name TEXT UNIQUE, race TEXT, age INTEGER)")
+
+	if err != nil {
+		log.Fatal("There was an issue with setting up the SQL statement. " + err.Error())
+	}
 	statement.Exec()
 }
 
@@ -33,7 +39,7 @@ func GetDogs() [][]string {
 	rows, err := db.Query("SELECT * FROM dogs")
 
 	if err != nil {
-		log.Fatal("There was a problem with the query.")
+		log.Fatal("There was a problem with the query." + err.Error())
 	}
 
 	var dogs [][]string

@@ -3,9 +3,12 @@ package main
 import (
 	"dog-tracking/data"
 	"log"
+	"os"
 )
 
 func main() {
+	port := os.Getenv("PORT")
+
 	log.Println("Setting up SQLite DB...")
 
 	data.CreateTable()
@@ -13,9 +16,9 @@ func main() {
 	log.Println("Table set up.")
 	log.Println("Setting up API...")
 
-	data.SetupHttp("8080")
+	data.SetupHttp(port)
 	// or
-	// data.SetupGin("8080")
+	// data.SetupGin(port)
 
 	log.Println("API set up.")
 }
