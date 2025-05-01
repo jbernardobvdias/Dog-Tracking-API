@@ -14,6 +14,11 @@ const DBTYPE string = "sqlite3"
 var DBPATH string = os.Getenv("DBPATH")
 
 func CreateTable() {
+	// In case it is run locally and DBPATH doesn't exist
+	if DBPATH == "" {
+		DBPATH = "./database.db"
+	}
+
 	db, err := sql.Open(DBTYPE, DBPATH)
 	if err != nil {
 		log.Fatal("There was an error connecting to the database.")
